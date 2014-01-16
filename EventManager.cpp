@@ -86,8 +86,10 @@ void Buffer::Update() {
 			//}
 
 			this->screen[(y * this->width)] = '#';
-			this->screen[(y * this->width) + this->width-1] = '#';
+			this->screen[(y * this->width) + this->width-2] = '#';
 		}
+
+		this->screen[(y * this->width) + this->width-1] = '\n';
 	}
 
 	for (int x = (asteroid->x - asteroid->radius); x < (asteroid->x + asteroid->radius); x++) {

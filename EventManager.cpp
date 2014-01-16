@@ -1,4 +1,4 @@
-#include <iostream>
+#include <cstdio>
 #include <chrono>
 #include <thread>
 #include "FastDelegate.h"
@@ -58,7 +58,7 @@ Buffer::Buffer(int width, int height, Spaceship* spaceship, Asteroid* asteroid) 
 	this->asteroid = asteroid;
 	this->width = width;
 	this->height = height;
-	this->screen = (char*)malloc((width * height * sizeof(char)) + 1);
+	this->screen = new char[(width * height) + 1];
 	this->screen[(width * height * sizeof(char))] = '\0';
 	//collisionDelegate = MakeDelegate(spaceship, &Spaceship::OnCollision);
 	collisionDelegate = MakeDelegate(this->spaceship, &Spaceship::OnCollision);
@@ -123,14 +123,14 @@ int main() {
 	Buffer buffer(80, 24, &spaceship, &asteroid);
 
 	for (int tick = 0; tick < 100; tick++) {
-		//cout << "Tick " << tick << endl;
+		//printf("Tick %d\n", tick);
 		buffer.Update();
 		buffer.Draw();
 		this_thread::sleep_for(chrono::milliseconds(100));
 	}
 
-	cout << "Press any key to exit..." << endl;
-	cin.get();
+	printf("Press any key to exit...\n");
+	getchar();
 
 	return 0;
 }
